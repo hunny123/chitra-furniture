@@ -5,5 +5,10 @@
     * storage will use firebase for image
 # Frontend code
     * code will be in client
+    ## How will start you application
+           cd client
+           npm install
+           npm run serve
+         
 # Backend code 
     * code will be in server
