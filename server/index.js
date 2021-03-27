@@ -4,7 +4,7 @@ const startServer =async()=>
 {
     const app = express();
     const port = process.env.PORT ||5000
-    await loaders(app );
+    await loaders(app);
     app.listen(port,(err)=>{
         if(err){
             console.log(err)
@@ -12,7 +12,5 @@ const startServer =async()=>
         }
         console.log(`server is runnig on ${port}`)
     })
-    
-
 }
 startServer()
