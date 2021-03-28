@@ -28,7 +28,7 @@
         }
     ],
     paths: {
-        "api/v1/status": {
+        "/api/v1/status": {
             "get": {
                 tags: ['status'],
                 description: "just for checking whether serve is live or not",
