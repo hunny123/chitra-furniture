@@ -4,11 +4,28 @@ const route = Router();
 
 
 const Product = (app) => {
-  app.use('/product', route); 
+  app.use('/product', route);
+  route.get('/product-info', async (req, res) => {
+    const { id } = req.query
+    console.log(id)
+    try {
+      const productModel = await ProductModel()
+      const productInfo = await productModel.findAll({
+        where: {
+          id: id,
+        }
+      })
+      return res.json({product:productInfo}).status(200)
+    }
+    catch (err) {
+      return res.json({msg:"fetching fails" ,actual: err.msg}).status(502)
+    }
+  })
   //list api
   route.get('/list',async(req, res) => {
     try {
-      const productModel= await ProductModel();
+      const productModel = await ProductModel();
+     
       const list= await productModel.findAll()
       console.log(list)
       return res.json({ product:list }).status(200);
