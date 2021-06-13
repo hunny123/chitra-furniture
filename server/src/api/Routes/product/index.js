@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const ProductModel = require('../../../models/productModel')
+const {getRequestPaginationObj,getResponsePaginationObj} = require('../../../Utility/pagination')
 const route = Router();
 
 
@@ -7,13 +8,14 @@ const Product = (app) => {
   app.use('/product', route);
   route.get('/product-info', async (req, res) => {
     const { id } = req.query
-    console.log(id)
+   
     try {
       const productModel = await ProductModel()
       const productInfo = await productModel.findAll({
         where: {
           id: id,
-        }
+        },
+       
       })
       return res.json({product:productInfo}).status(200)
     }
@@ -22,13 +24,15 @@ const Product = (app) => {
     }
   })
   //list api
-  route.get('/list',async(req, res) => {
+  route.get('/list', async (req, res) => {
+    const paginationOption = getRequestPaginationObj(req)
     try {
       const productModel = await ProductModel();
      
-      const list= await productModel.findAll()
-      console.log(list)
-      return res.json({ product:list }).status(200);
+      const responseData = await productModel.findAndCountAll({ ...paginationOption })
+    
+      const paginatedResponseData = getResponsePaginationObj(paginationOption,responseData,'products')
+      return res.json({ ...paginatedResponseData }).status(200);
     }
     catch(err){
       console.log(err)
