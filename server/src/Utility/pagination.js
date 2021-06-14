@@ -1,8 +1,8 @@
 const getRequestPaginationObj = (req) => {
     const { page, size } = req.query
-    const limit = size || 10
+    const limit = size? parseInt(size) : 10
     const offset = page ? (page - 1) * limit : 0;
-    return {limit ,offset,page:page||1}
+    return {limit ,offset,page:parseInt(page)||1}
     
 }
 const getResponsePaginationObj = (paginationOption,responseData,datakey) => {

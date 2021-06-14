@@ -1,6 +1,8 @@
 const { Router } = require('express')
 const ProductModel = require('../../../models/productModel')
 const {getRequestPaginationObj,getResponsePaginationObj} = require('../../../Utility/pagination')
+const { productListFilters } = require('./productFilters')
+const  getFilters  = require("../../../Utility/filter") 
 const route = Router();
 
 
@@ -26,16 +28,18 @@ const Product = (app) => {
   //list api
   route.get('/list', async (req, res) => {
     const paginationOption = getRequestPaginationObj(req)
+    const productFilters = getFilters(req, productListFilters)
+    console.log(paginationOption)
     try {
       const productModel = await ProductModel();
      
-      const responseData = await productModel.findAndCountAll({ ...paginationOption })
+      const responseData = await productModel.findAndCountAll({where:{...productFilters}, ...paginationOption })
     
       const paginatedResponseData = getResponsePaginationObj(paginationOption,responseData,'products')
       return res.json({ ...paginatedResponseData }).status(200);
     }
-    catch(err){
-      console.log(err)
+    catch (err) {
+     
       return res.json({msg:"fetching fails"}).status(502)
     }
    
