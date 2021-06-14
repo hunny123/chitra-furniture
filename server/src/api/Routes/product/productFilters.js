@@ -1,4 +1,4 @@
-const productListFilters = ['sku', 'price', 'category_id']
+const productListFilters = ['sku', 'price', 'category_id','name']
 module.exports = {
     productListFilters
 }
