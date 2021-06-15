@@ -1,8 +1,8 @@
-import MyButton from './Button.vue';
+import Button from './Button.vue';
 
 export default {
   title: 'Example/Button',
-  component: MyButton,
+  component: Button,
   argTypes: {
     backgroundColor: { control: 'color' },
     size: { control: { type: 'select', options: ['small', 'medium', 'large'] } },
@@ -11,7 +11,7 @@ export default {
 
 const Template = (args, { argTypes }) => ({
   props: Object.keys(argTypes),
-  components: { MyButton },
+  components: { Button },
   template: '<my-button @onClick="onClick" v-bind="$props" />',
 });
 
